@@ -1,30 +1,42 @@
 name: Continuous Integration
-
 on:
   push:
     branches:
       - main
-  workflow_dispatch:  # Enable manual trigger
-
+      - jenk
+  workflow_dispatch:
+  
 jobs:
-  build:
-    runs-on: ubuntu-latest  # Select the operating system
+  my_first_job:
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'zulu'
+
+    - name: Show Java version
+      run: "java -version"
+
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        ref: jenk
+
+    - name: Show directory
+      run: 'pwd'
+
+    - name: List files
+      run: 'ls -al'
 
     - name: Install Dependencies
-      run: |
-        # Add commands to install necessary dependencies
-        # For example, npm install or pip install
+      run: 'mvn compile'
 
-    - name: Build Project
-      run: |
-        # Add commands to build the project
-        # For example, npm run build or make build
+    - name: Build application
+      run: 'mvn package -DskipTests'
 
-    - name: Run Unit Tests
-      run: |
-        # Add commands to run unit tests
-        # For example, npm test or pytest
+    - name: Test application
+      run: 'mvn test'
