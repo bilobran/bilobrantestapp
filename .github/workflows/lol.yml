@@ -27,7 +27,7 @@ jobs:
         run: git clone https://github.com/bilobran/bilobrantestapp.git
 
       - name: Change Directory
-        run: cd copyolder
+        run: cd .github/copyolder
 
       - name: Download Dependencies and Build Project
         run: |
