@@ -15,18 +15,18 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up JDK
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          java-version: '17'
 
       - name: Install Maven
         run: sudo apt-get install maven -y
 
       - name: Clone Project
-        run: git clone https://github.com/yourusername/yourproject.git
+        run: git clone https://github.com/devops-fundamentals-templates/dofd-05-java-bilobran.git
 
       - name: Change Directory
-        run: cd yourproject
+        run: cd devops-fundamentals-templates
 
       - name: Download Dependencies and Build Project
         run: |
