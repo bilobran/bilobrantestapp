@@ -24,10 +24,10 @@ jobs:
         run: sudo apt-get install maven -y
 
       - name: Clone Project
-        run: git clone https://github.com/devops-fundamentals-templates/dofd-05-java-bilobran.git
+        run: git clone https://github.com/bilobran/bilobrantestapp.git
 
       - name: Change Directory
-        run: cd devops-fundamentals-templates
+        run: cd bilobran
 
       - name: Download Dependencies and Build Project
         run: |
