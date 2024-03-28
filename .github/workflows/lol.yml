@@ -1,42 +1,36 @@
-name: Continuous Integration
+name: Java Continuous Integration
+
 on:
   push:
     branches:
       - main
-      - jenk
-  workflow_dispatch:
-  
+  workflow_dispatch:  # Enable manual trigger
+
 jobs:
-  my_first_job:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest  # Select an operating system
 
     steps:
-    
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'zulu'
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Show Java version
-      run: "java -version"
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
 
-    - name: Checkout code
-      uses: actions/checkout@v3
-      with:
-        ref: jenk
+      - name: Install Maven
+        run: sudo apt-get install maven -y
 
-    - name: Show directory
-      run: 'pwd'
+      - name: Clone Project
+        run: git clone https://github.com/yourusername/yourproject.git
 
-    - name: List files
-      run: 'ls -al'
+      - name: Change Directory
+        run: cd yourproject
 
-    - name: Install Dependencies
-      run: 'mvn compile'
+      - name: Download Dependencies and Build Project
+        run: |
+          mvn clean install
 
-    - name: Build application
-      run: 'mvn package -DskipTests'
-
-    - name: Test application
-      run: 'mvn test'
+      - name: Run Unit Tests
+        run: mvn test
